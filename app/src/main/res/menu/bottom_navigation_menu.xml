@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/user"
+        android:enabled="true"
+        android:title="user"
+        android:icon="@drawable/user_icon"/>
+    <item
+        android:id="@+id/HI"
+        android:enabled="true"
+        android:title="H.I"
+        android:icon="@drawable/hi_icon"/>
+    <item
+        android:id="@+id/diary"
+        android:enabled="true"
+        android:title="diary"
+        android:icon="@drawable/diary_icon"/>
+    <item
+        android:id="@+id/food"
+        android:enabled="true"
+        android:title="food"
+        android:icon="@drawable/food_icon"/>
+    <item
+        android:id="@+id/recipe"
+        android:enabled="true"
+        android:title="recipe"
+        android:icon="@drawable/recipe_icon"/>
+</menu>
