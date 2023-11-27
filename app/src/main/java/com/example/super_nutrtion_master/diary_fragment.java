@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +25,7 @@ public class diary_fragment extends Fragment {
     ImageButton calendar_button;
     Calendar calendar;
     DatePickerDialog.OnDateSetListener datePicker;
-    String myFormat = "yyyy年MM月dd日";
+    String myFormat = "yyyy-MM-dd", dateString;
     SimpleDateFormat dateFormat;
 
     @Override
@@ -62,8 +62,9 @@ public class diary_fragment extends Fragment {
         calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();
         dateFormat = new SimpleDateFormat(myFormat, Locale.TAIWAN);
-        String formattedDate = dateFormat.format(currentDate);
-        datePicker_button.setText(formattedDate);
+        dateString = dateFormat.format(currentDate);
+        datePicker_button.setText(dateString);
+        initial_child_frag();
     }
 
     public void selectDate(){
@@ -74,8 +75,10 @@ public class diary_fragment extends Fragment {
                 calendar.set(Calendar.YEAR, i);
                 calendar.set(Calendar.MONTH , i1);
                 calendar.set(Calendar.DAY_OF_MONTH, i2);
-                datePicker_button.setText(dateFormat.format(calendar.getTime()));
-                Toast.makeText(getActivity(), dateFormat.format(calendar.getTime()), Toast.LENGTH_LONG).show(); //test用
+                dateString = dateFormat.format(calendar.getTime());
+                datePicker_button.setText(dateString);
+                //Toast.makeText(getActivity(), dateString, Toast.LENGTH_LONG).show(); //test用
+                initial_child_frag();
             }
         };
         datePicker_button.setOnClickListener(new View.OnClickListener() {
@@ -90,5 +93,33 @@ public class diary_fragment extends Fragment {
             }
         });
     }
+
+    public void open_calendar(){
+        calendar_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    public void setFragment(Fragment fragment){
+        FragmentManager fm = getChildFragmentManager();
+        fm.beginTransaction().replace(R.id.diary_child_frag,fragment).commit();
+
+    }
+
+    public void deliver_data_to_child_frag(Fragment fragment){
+        Bundle user_bundle = new Bundle();
+        user_bundle.putString("date str", dateString);
+        fragment.setArguments(user_bundle);
+    }
+
+    public void initial_child_frag(){
+        inner_diary_fragment inner_diary_fragment = new inner_diary_fragment();
+        deliver_data_to_child_frag(inner_diary_fragment);
+        setFragment(inner_diary_fragment);
+    }
+
 
 }
