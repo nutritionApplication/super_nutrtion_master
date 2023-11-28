@@ -16,9 +16,10 @@ public class MainActivity extends AppCompatActivity {
     private user_fragment user_fragment = new user_fragment();
     private HI_fragment HI_fragment = new HI_fragment();
     private diary_fragment diary_fragment = new diary_fragment();
+    private food_fragment food_fragment = new food_fragment();
     private String gender_str, exercise_str;
     private int gender, age, height, weight, exercise;
-    private int BMR, LFEM, Vegetables, OFNS, oils_and_fats, nuts_and_seeds = 1;
+    private int BMR, LFEM, Vegetables, OFNS, oils_and_fats, nuts_and_seeds = 1, sodium = 2000;
     private double BMI, TDEE, TDEE_Mag, protein, protein_Mag, fat, Whole_grains, Dairy, Fruits;
 
 
@@ -49,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
                 calculate_health_indicator(); //取得使用者資料後馬上計算營養指標
                 deliver_data_to_user_frag();
                 setFragment(user_fragment);
+            }
+            else if(fragTag.equals("food_frag")){
+                getUserData();
+                calculate_health_indicator();
+                setFragment(food_fragment);
             }
         }
     }
@@ -90,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.diary:
                         setFragment(diary_fragment);
+                        return true;
+                    case R.id.food:
+                        setFragment(food_fragment);
                         return true;
                 }
                 return false;
@@ -206,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
         HI_bundle.putInt("nuts_and_seeds", nuts_and_seeds);
         HI_bundle.putDouble("protein", protein);
         HI_bundle.putDouble("fat", fat);
+        HI_bundle.putInt("Sodium", sodium);
         HI_fragment.setArguments(HI_bundle);
     }
 

@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment;
 
 public class HI_fragment extends Fragment {
 
-    private int BMR, LFEM, Vegetables, OFNS, oils_and_fats, nuts_and_seeds;
+    private int BMR, LFEM, Vegetables, OFNS, oils_and_fats, nuts_and_seeds, sodium;
     private double BMI, TDEE, protein, fat, Whole_grains, Dairy, Fruits;
-    private TextView BMI_view, BMR_view, TDEE_view, Whole_grains_view, LFEM_view, Dairy_view, Vegetables_view, Fruits_view, OFNS_view, protein_view, fat_view;
+    private TextView BMI_view, BMR_view, TDEE_view, Whole_grains_view, LFEM_view, Dairy_view, Vegetables_view, Fruits_view, OFNS_view, protein_view, fat_view, sodium_view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class HI_fragment extends Fragment {
         OFNS_view = view.findViewById(R.id.OFNS_textView);
         protein_view = view.findViewById(R.id.protein_textView);
         fat_view = view.findViewById(R.id.fat_textView);
+        sodium_view = view.findViewById(R.id.sodium_textView);
     }
 
     public void getData(){
@@ -70,6 +71,7 @@ public class HI_fragment extends Fragment {
             nuts_and_seeds = bundle.getInt("nuts_and_seeds");
             protein = bundle.getDouble("protein");
             fat = bundle.getDouble("fat");
+            sodium = bundle.getInt("Sodium");
         }
     }
 
@@ -85,5 +87,6 @@ public class HI_fragment extends Fragment {
         OFNS_view.setText("油脂與堅果種子類 : " + Integer.toString(OFNS) + "份  (油脂類 : " + Integer.toString(oils_and_fats) + "份 + 堅果種子類 : " + Integer.toString(nuts_and_seeds) + "份)");
         protein_view.setText("蛋白質 : " + Double.toString(protein) + "g");
         fat_view.setText("脂肪 : " + Double.toString(fat) + "g");
+        sodium_view.setText("鈉 : " + Integer.toString(sodium) + "mg");
     }
 }
