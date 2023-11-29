@@ -1,6 +1,7 @@
 package com.example.super_nutrtion_master;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,12 +22,13 @@ import java.util.Locale;
 
 public class diary_fragment extends Fragment {
     Toolbar topBar;
-    Button datePicker_button;
+    Button datePicker_button, addFood_button;
     ImageButton calendar_button;
     Calendar calendar;
     DatePickerDialog.OnDateSetListener datePicker;
     String myFormat = "yyyy-MM-dd", dateString;
     SimpleDateFormat dateFormat;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class diary_fragment extends Fragment {
         toolBarSetting();
         getCurrentDate();
         selectDate();
+        addFood();
         return view;
     }
 
@@ -49,6 +52,7 @@ public class diary_fragment extends Fragment {
         topBar = view.findViewById(R.id.diaryFrag_top_toolbar);
         datePicker_button = view.findViewById(R.id.datePicker_button);
         calendar_button = view.findViewById(R.id.calendar_button);
+        addFood_button = view.findViewById(R.id.addFood_button);
     }
 
     public void toolBarSetting(){
@@ -99,6 +103,21 @@ public class diary_fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+    }
+
+    public void addFood(){
+        addFood_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle add_bundle = new Bundle();
+                add_bundle.putString("source", "diary_frag_addFood");
+
+                Intent add_intent = new Intent();
+                add_intent.setClass(getActivity(), FoodSearchActivity.class);
+                add_intent.putExtras(add_bundle);
+                startActivity(add_intent);
             }
         });
     }

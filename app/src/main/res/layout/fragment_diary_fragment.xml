@@ -37,6 +37,15 @@
             tools:layout_editor_absoluteX="14dp"
             tools:layout_editor_absoluteY="7dp" />
 
+        <Button
+            android:id="@+id/addFood_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:text="新增"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_editor_absoluteY="7dp" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout

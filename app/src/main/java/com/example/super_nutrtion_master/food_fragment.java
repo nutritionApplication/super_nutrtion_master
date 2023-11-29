@@ -29,8 +29,12 @@ public class food_fragment extends Fragment {
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("source", "food_frag");
+
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), FoodSearchActivity.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

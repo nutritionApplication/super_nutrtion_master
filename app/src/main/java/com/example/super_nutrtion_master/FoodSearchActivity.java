@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +28,7 @@ public class FoodSearchActivity extends AppCompatActivity {
 
     EditText keywordText;
     Button foodSearch_button, back_button;
-    String keyword;
+    String keyword, source;
     ListView foodList;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
@@ -37,6 +36,7 @@ public class FoodSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_search);
         BindById();
+        IntentJudgment();
         search();
         Back();
     }
@@ -46,6 +46,12 @@ public class FoodSearchActivity extends AppCompatActivity {
         back_button = findViewById(R.id.back_button);
         keywordText = findViewById(R.id.KeywordEditText);
         foodList = findViewById(R.id.food_list);
+    }
+
+    public void IntentJudgment(){
+        if(getIntent().hasExtra("source")) {
+            source = getIntent().getStringExtra("source");
+        }
     }
 
     public void getKeyword(){
@@ -68,7 +74,12 @@ public class FoodSearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Bundle back_bundle = new Bundle();
-                back_bundle.putString("fragmentToShow", "food_frag");
+                if(source.equals("diary_frag_addFood")){
+                    back_bundle.putString("fragmentToShow", "diary_frag");
+                }
+                else if(source.equals("food_frag")){
+                    back_bundle.putString("fragmentToShow", "food_frag");
+                }
 
                 Intent back_intent = new Intent();
                 back_intent.setClass(FoodSearchActivity.this, MainActivity.class);
@@ -86,8 +97,9 @@ public class FoodSearchActivity extends AppCompatActivity {
         foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String msg = food_name_list.get(position);
-                Toast.makeText(FoodSearchActivity.this, msg, Toast.LENGTH_LONG).show();
+                String food_name = food_name_list.get(position);
+                //Toast.makeText(FoodSearchActivity.this, food_name, Toast.LENGTH_LONG).show();
+                GotoFoodDataPage(food_name);
             }
         });
     }
@@ -115,5 +127,16 @@ public class FoodSearchActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void GotoFoodDataPage(String food_name){
+        Bundle fd_bundle = new Bundle();
+        fd_bundle.putString("source", source);
+        fd_bundle.putString("food_name", food_name);
+
+        Intent fd_intent = new Intent();
+        fd_intent.setClass(FoodSearchActivity.this, ShowFoodDataActivity.class);
+        fd_intent.putExtras(fd_bundle);
+        startActivity(fd_intent);
     }
 }

@@ -51,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
                 deliver_data_to_user_frag();
                 setFragment(user_fragment);
             }
+            else if(fragTag.equals("diary_frag")){
+                getUserData();
+                calculate_health_indicator();
+                setFragment(diary_fragment);
+            }
             else if(fragTag.equals("food_frag")){
                 getUserData();
                 calculate_health_indicator();
