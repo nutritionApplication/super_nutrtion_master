@@ -8,13 +8,13 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/foodDataPageTopBar"
-        android:layout_width="411dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="33dp"
+        android:layout_width="415dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="1dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/foodImage"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -36,124 +36,133 @@
             android:text="食物名稱"
             android:textAlignment="center"
             tools:layout_editor_absoluteX="132dp"
-            tools:layout_editor_absoluteY="16dp"/>
+            tools:layout_editor_absoluteY="16dp" />
 
 
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="405dp"
-        android:layout_height="124dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="36dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/foodImage">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/food_quantity_textview"
-                android:layout_width="66dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="數量"
-                android:textAlignment="center" />
-
-            <EditText
-                android:id="@+id/food_quantity_value"
-                android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="number" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/foodDataPageDeleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="刪除" />
-
-            <Button
-                android:id="@+id/foodDataPageConfirmButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="確認" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/foodImage"
-        android:layout_width="265dp"
-        android:layout_height="176dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/foodDataPageTopBar"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout5"
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="9dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/foodDataPageTopBar">
 
-        <TextView
-            android:id="@+id/foodDataPage_calories_view"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="熱量" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/foodDataPage_carbohydrate_view"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="碳水化合物" />
+            <ImageView
+                android:id="@+id/foodImage"
+                android:layout_width="265dp"
+                android:layout_height="176dp"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="68dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/foodDataPageTopBar"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        <TextView
-            android:id="@+id/foodDataPage_protein_view"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="蛋白質" />
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="405dp"
+                android:layout_height="124dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="36dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/foodImage">
 
-        <TextView
-            android:id="@+id/foodDataPage_fat_view"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="脂肪" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/foodDataPage_sodium_view"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="鈉" />
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/food_quantity_textview"
+                        android:layout_width="66dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="數量"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/food_quantity_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:hint="請輸入數量"
+                        android:textAlignment="center"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/foodDataPageDeleteButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="刪除" />
+
+                    <Button
+                        android:id="@+id/foodDataPageConfirmButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="確認" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/foodDataPage_calories_view"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="熱量" />
+
+            <TextView
+                android:id="@+id/foodDataPage_carbohydrate_view"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="碳水化合物" />
+
+            <TextView
+                android:id="@+id/foodDataPage_protein_view"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="蛋白質" />
+
+            <TextView
+                android:id="@+id/foodDataPage_fat_view"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="脂肪" />
+
+            <TextView
+                android:id="@+id/foodDataPage_sodium_view"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="鈉" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

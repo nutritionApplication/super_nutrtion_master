@@ -3,6 +3,8 @@ package com.example.super_nutrtion_master;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,26 +12,35 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class ShowFoodDataActivity extends AppCompatActivity {
 
     Button Back_button, Delete_button, Confirm_button;
     TextView food_name_view, calories_view, carbohydrate_view, protein_view, fat_view, sodium_view, food_quantity_view;
     ImageView food_picture;
-    EditText food_quantity;
-    String source, food_name;
+    EditText food_quantity_value;
+    String source, food_name, dateStr;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    double calories, carbohydrate, protein, fat, sodium;
+    double carbohydrate, protein, fat;
+    int calories, sodium, food_quantity;
 
 
     @Override
@@ -57,22 +68,27 @@ public class ShowFoodDataActivity extends AppCompatActivity {
         fat_view = findViewById(R.id.foodDataPage_fat_view);
         sodium_view = findViewById(R.id.foodDataPage_sodium_view);
         food_picture = findViewById(R.id.foodImage);
-        food_quantity = findViewById(R.id.food_quantity_value);
+        food_quantity_value = findViewById(R.id.food_quantity_value);
     }
 
-    public void IntentJudgment(){ //根據開啟此頁面的來源來判斷要顯示的內容
+    public void IntentJudgment(){ //根據開啟此頁面的來源來判斷要顯示的內容以及擷取對應的參數
         if(getIntent().hasExtra("source")){
             source = getIntent().getStringExtra("source");
             if(source.equals("diary_frag_addFood")){
                 Delete_button.setVisibility(View.INVISIBLE);
+                if(getIntent().hasExtra("dateStr")){
+                    dateStr = getIntent().getStringExtra("dateStr");
+                }
 
             }
             else if(source.equals("diary_frag_editFood")){
-
+                if(getIntent().hasExtra("dateStr")){
+                    dateStr = getIntent().getStringExtra("dateStr");
+                }
             }
             else if(source.equals("food_frag")){
                 food_quantity_view.setVisibility(View.INVISIBLE);
-                food_quantity.setVisibility(View.INVISIBLE);
+                food_quantity_value.setVisibility(View.INVISIBLE);
                 Delete_button.setVisibility(View.INVISIBLE);
                 Confirm_button.setVisibility(View.INVISIBLE);
             }
@@ -88,11 +104,17 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            calories = (Double) document.getDouble("calories");
-                            carbohydrate = document.getDouble("carbohydrate");
-                            protein = document.getDouble("protein");
-                            fat = document.getDouble("fat");
-                            sodium = document.getDouble("sodium");
+                            calories = Integer.parseInt(document.get("calories").toString());
+                            carbohydrate = Double.parseDouble(document.get("carbohydrate").toString());
+                            protein = Double.parseDouble(document.get("protein").toString());
+                            fat = Double.parseDouble(document.get("fat").toString());
+                            sodium = Integer.parseInt(document.get("sodium").toString());
+                            food_name_view.setText(food_name);
+                            calories_view.setText("熱量 : " + String.valueOf(calories) + "cal");
+                            carbohydrate_view.setText("碳水化合物 : " + String.valueOf(carbohydrate) + "g");
+                            protein_view.setText("蛋白質 : " + String.valueOf(protein) + "g");
+                            fat_view.setText("脂肪 : " + String.valueOf(fat) + "g");
+                            sodium_view.setText("鈉 : " + String.valueOf(sodium) + "mg");
                         } else {
                             Log.d(TAG, "No such document");
                         }
@@ -102,10 +124,21 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                 }
             });
 
-
+            storage.getReference().child(food_name + ".jpg").getBytes(Long.MAX_VALUE).addOnCompleteListener(new OnCompleteListener<byte[]>() {
+                @Override
+                public void onComplete(@NonNull Task<byte[]> task) {
+                    if (task.isSuccessful()) {
+                        byte[] imageData = task.getResult();
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, Objects.requireNonNull(imageData).length);
+                        food_picture.setImageBitmap(bitmap);
+                    } else {
+                        Log.e("Storage", "Error getting image", task.getException());
+                    }
+                }
+            });
         }
-
     }
+
 
     public void Back(){
         Back_button.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +170,53 @@ public class ShowFoodDataActivity extends AppCompatActivity {
     }
 
     public void Confirm(){
+        Confirm_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                if(food_quantity_value.getText().toString().length() < 1){
+                    Toast.makeText(ShowFoodDataActivity.this, "請輸入數量", Toast.LENGTH_SHORT).show();
+                }
+                else if(Integer.parseInt(food_quantity_value.getText().toString()) < 1){
+                    Toast.makeText(ShowFoodDataActivity.this, "請輸入有效數量", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    food_quantity = Integer.parseInt(food_quantity_value.getText().toString());
+                    Map<String, Object> food = new HashMap<>();
+                    food.put("name", food_name);
+                    food.put("calories", calories);
+                    food.put("carbohydrate", carbohydrate);
+                    food.put("protein", protein);
+                    food.put("fat", fat);
+                    food.put("sodium", sodium);
+                    food.put("quantity", food_quantity);
+
+                    db.collection("date").document(dateStr).collection("foods")
+                            .add(food)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
+
+                    Bundle confirm_bundle = new Bundle();
+                    Intent confirm_intent = new Intent();
+                    if(source.equals("diary_frag_addFood")){
+                        confirm_bundle.putString("fragmentToShow", "diary_frag");
+                        confirm_intent.setClass(ShowFoodDataActivity.this, MainActivity.class);
+                        confirm_intent.putExtras(confirm_bundle);
+                        startActivity(confirm_intent);
+                    }
+                }
+            }
+        });
     }
 
 

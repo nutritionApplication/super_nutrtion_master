@@ -113,6 +113,7 @@ public class diary_fragment extends Fragment {
             public void onClick(View v) {
                 Bundle add_bundle = new Bundle();
                 add_bundle.putString("source", "diary_frag_addFood");
+                add_bundle.putString("dateStr", dateString);
 
                 Intent add_intent = new Intent();
                 add_intent.setClass(getActivity(), FoodSearchActivity.class);
