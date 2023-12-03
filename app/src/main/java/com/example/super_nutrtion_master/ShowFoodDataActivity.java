@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -205,6 +206,39 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                                     Log.w(TAG, "Error adding document", e);
                                 }
                             });
+
+                    //-----------------校正開始-----------------------------
+
+                    //先新增校正欄位到對應的日期文件
+                    Map<String, Object> correction = new HashMap<>();
+                    correction.put("correction", "correction");
+                    db.collection("date").document(dateStr)
+                            .set(correction)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error writing document", e);
+                                }
+                            });
+
+                    //接著把校正欄位刪除，藉此將document的日期格式去斜體化，避免找不到對應字串的問題
+                    Map<String,Object> updates = new HashMap<>();
+                    updates.put("correction", FieldValue.delete());
+                    db.collection("date").document(dateStr).update(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                        }
+                    });
+
+                    //-----------------校正結束-----------------------------
+
 
                     Bundle confirm_bundle = new Bundle();
                     Intent confirm_intent = new Intent();

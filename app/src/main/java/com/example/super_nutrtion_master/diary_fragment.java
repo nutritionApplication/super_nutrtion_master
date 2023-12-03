@@ -81,7 +81,7 @@ public class diary_fragment extends Fragment {
                 calendar.set(Calendar.DAY_OF_MONTH, i2);
                 dateString = dateFormat.format(calendar.getTime());
                 datePicker_button.setText(dateString);
-                //Toast.makeText(getActivity(), dateString, Toast.LENGTH_LONG).show(); //test用
+                //Toast.makeText(getActivity(), dateString, Toast.LENGTH_SHORT).show(); //test用
                 initial_child_frag();
             }
         };
