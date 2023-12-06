@@ -10,16 +10,19 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/inner_diary_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
         <TextView
-            android:id="@+id/dateString"
+            android:id="@+id/inner_diary_textview"
             android:layout_width="match_parent"
             android:layout_height="95dp"
-            android:textSize="40sp"
-            android:text="" />
+            android:textSize="20sp"
+            android:text="點選新增來增加食物"
+            android:textAlignment="center"
+            android:gravity="center"/>
 
         </LinearLayout>
     </ScrollView>

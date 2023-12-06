@@ -52,7 +52,7 @@ public class FoodSearchActivity extends AppCompatActivity {
         if(getIntent().hasExtra("source")) {
             source = getIntent().getStringExtra("source");
 
-            if (source.equals("diary_frag_addFood") || source.equals("diary_frag_editFood")) {
+            if (source.equals("diary_frag_addFood")) {
                 if(getIntent().hasExtra("dateStr")) {
                     dateStr = getIntent().getStringExtra("dateStr");
                 }
@@ -139,7 +139,7 @@ public class FoodSearchActivity extends AppCompatActivity {
         Bundle fd_bundle = new Bundle();
         fd_bundle.putString("source", source);
         fd_bundle.putString("food_name", food_name);
-        if (source.equals("diary_frag_addFood") || source.equals("diary_frag_editFood")) {
+        if (source.equals("diary_frag_addFood")) {
             fd_bundle.putString("dateStr", dateStr);
         }
 
