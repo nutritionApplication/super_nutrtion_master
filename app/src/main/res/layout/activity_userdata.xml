@@ -99,6 +99,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -164,10 +165,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginRight="20dp"
             android:layout_weight="0.5"
             android:text="取消"
-            android:layout_marginRight="20dp"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/confirm_button"
@@ -177,6 +178,7 @@
             android:layout_weight="0.5"
             android:text="確認"
             android:layout_marginLeft="20dp"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
