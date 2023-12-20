@@ -1,0 +1,29 @@
+<!-- custom_button_background.xml -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background color -->
+<!--    <item android:drawable="#03c300" />-->
+
+    <!-- Icon -->
+    <item
+        android:id="@+id/google_line_icon"
+        android:width="28dp"
+        android:height="28dp"
+        android:gravity="start"
+        android:left="13dp"
+        android:top="16dp">
+        <bitmap android:src="@drawable/line_icon" />
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#03c300" />  <!-- 設定邊框的顏色 -->
+                <!-- 可以選擇設定圓角 -->
+           <corners
+                android:radius="5dp" />
+        </shape>
+    </item>
+</layer-list>
