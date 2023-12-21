@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.helper.widget.MotionEffect;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,33 +25,31 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+//用來顯示食物詳細資訊的頁面
 public class ShowFoodDataActivity extends AppCompatActivity {
 
-    Button Back_button, Delete_button, Confirm_button, Add_button;
-    TextView food_name_view, calories_view, carbohydrate_view, protein_view, fat_view, sodium_view, food_quantity_view;
-    ImageView food_picture;
-    EditText food_quantity_value;
-    String source, food_name, dateStr, documentID;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    double carbohydrate, protein, fat;
-    int calories, sodium, food_quantity, quantity_para;
-    View food_data_topDivider, food_data_bottomDivider;
+    private Button Back_button, Delete_button, Confirm_button, Add_button;
+    private TextView food_name_view, calories_view, carbohydrate_view, protein_view, fat_view, sodium_view, food_quantity_view;
+    private ImageView food_picture;
+    private EditText food_quantity_value;
+    private String source, food_name, dateStr, documentID;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private double carbohydrate, protein, fat;
+    private int calories, sodium, food_quantity, quantity_para;
+    private View food_data_topDivider, food_data_bottomDivider;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_food_data);
-
         BindById();
         IntentJudgment();
         getFoodData();
@@ -120,7 +116,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
         }
     }
 
-    public void getFoodData(){
+    public void getFoodData(){ //從資料庫取得食物的資訊
         db.collection("foods").document(food_name).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -149,7 +145,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
             }
         });
 
-        storage.getReference().child(food_name + ".jpg").getBytes(Long.MAX_VALUE).addOnCompleteListener(new OnCompleteListener<byte[]>() {
+        storage.getReference().child(food_name + ".jpg").getBytes(Long.MAX_VALUE).addOnCompleteListener(new OnCompleteListener<byte[]>() { //設置食物圖片
             @Override
             public void onComplete(@NonNull Task<byte[]> task) {
                 if (task.isSuccessful()) {
@@ -165,7 +161,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
     }
 
 
-    public void Back(){
+    public void Back(){ //點選返回按鈕會回到前一個頁面
         Back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,11 +186,11 @@ public class ShowFoodDataActivity extends AppCompatActivity {
         });
     }
 
-    public void Delete(){
+    public void Delete(){ //點選刪除按鈕能將該項食物從指定日期儲存的食物中刪除
         Delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.collection("date").document(dateStr).collection("foods").document(documentID)
+                db.collection("users").document(login_username.getInstance().getUsername()).collection("date").document(dateStr).collection("foods").document(documentID)
                         .delete()
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -219,7 +215,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
         });
     }
 
-    public void Add(){
+    public void Add(){ //點選新增能將食物新增至指定日期儲存的食物中
         Add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,7 +236,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                     food.put("sodium", sodium);
                     food.put("quantity", food_quantity);
 
-                    db.collection("date").document(dateStr).collection("foods").add(food).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    db.collection("users").document(login_username.getInstance().getUsername()).collection("date").document(dateStr).collection("foods").add(food).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
@@ -257,7 +253,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                     //先新增校正欄位到對應的日期文件
                     Map<String, Object> correction = new HashMap<>();
                     correction.put("correction", "correction");
-                    db.collection("date").document(dateStr).set(correction).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    db.collection("users").document(login_username.getInstance().getUsername()).collection("date").document(dateStr).set(correction).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d(TAG, "DocumentSnapshot successfully written!");
@@ -272,7 +268,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                     //接著把校正欄位刪除，藉此將document的日期格式去斜體化，避免找不到對應字串的問題
                     Map<String, Object> updates = new HashMap<>();
                     updates.put("correction", FieldValue.delete());
-                    db.collection("date").document(dateStr).update(updates);
+                    db.collection("users").document(login_username.getInstance().getUsername()).collection("date").document(dateStr).update(updates);
 
                     //-----------------校正結束-----------------------------
 
@@ -287,7 +283,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
         });
     }
 
-    public void Confirm(){
+    public void Confirm(){ //點選確認(編輯)後能更新指定日期儲存的食物
         Confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -295,7 +291,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
 
                 Map<String, Object> updates = new HashMap<>();
                 updates.put("quantity", food_quantity);
-                db.collection("date").document(dateStr).collection("foods").document(documentID).update(updates);
+                db.collection("users").document(login_username.getInstance().getUsername()).collection("date").document(dateStr).collection("foods").document(documentID).update(updates);
 
                 Bundle Confrim_bundle = new Bundle();
                 Intent Confrim_intent = new Intent();

@@ -20,15 +20,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+// 此為diary選項顯示的畫面
 public class diary_fragment extends Fragment {
-    Toolbar topBar;
-    Button datePicker_button, addFood_button;
-    ImageButton calendar_button;
-    Calendar calendar;
-    DatePickerDialog.OnDateSetListener datePicker;
-    String myFormat = "yyyy-MM-dd", dateString;
-    SimpleDateFormat dateFormat;
-
+    private Toolbar topBar;
+    private Button datePicker_button, addFood_button;
+    private ImageButton calendar_button;
+    private Calendar calendar;
+    private DatePickerDialog.OnDateSetListener datePicker;
+    private String myFormat = "yyyy-MM-dd", dateString;
+    private SimpleDateFormat dateFormat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,14 +55,14 @@ public class diary_fragment extends Fragment {
         addFood_button = view.findViewById(R.id.addFood_button);
     }
 
-    public void toolBarSetting(){
+    public void toolBarSetting(){ //設置toolbar
         if(getActivity() != null){
             ((AppCompatActivity) getActivity()).setSupportActionBar(topBar);
         }
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-    public void getCurrentDate(){ //將日期選擇器按鈕上的文字預設為當前日期
+    public void getCurrentDate(){ //取得當下日期，並將日期選擇器按鈕上的日期設為當下日期
         calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();
         dateFormat = new SimpleDateFormat(myFormat, Locale.TAIWAN);
@@ -71,8 +71,7 @@ public class diary_fragment extends Fragment {
         initial_child_frag();
     }
 
-    public void selectDate(){
-
+    public void selectDate(){ //取得日期選擇器所選的日期，將日期選擇器按鈕上的日期設為所選日期，並初始化inner_fragment
         datePicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -81,7 +80,6 @@ public class diary_fragment extends Fragment {
                 calendar.set(Calendar.DAY_OF_MONTH, i2);
                 dateString = dateFormat.format(calendar.getTime());
                 datePicker_button.setText(dateString);
-                //Toast.makeText(getActivity(), dateString, Toast.LENGTH_SHORT).show(); //test用
                 initial_child_frag();
             }
         };
@@ -98,7 +96,7 @@ public class diary_fragment extends Fragment {
         });
     }
 
-    public void open_calendar(){
+    public void open_calendar(){ //跳至行事曆頁面
         calendar_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +105,7 @@ public class diary_fragment extends Fragment {
         });
     }
 
-    public void addFood(){
+    public void addFood(){ //點選新增後跳至FoodSearchActivity
         addFood_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,13 +127,13 @@ public class diary_fragment extends Fragment {
 
     }
 
-    public void deliver_data_to_child_frag(Fragment fragment){
+    public void deliver_data_to_child_frag(Fragment fragment){ //傳遞參數到inner_fragment
         Bundle user_bundle = new Bundle();
         user_bundle.putString("date str", dateString);
         fragment.setArguments(user_bundle);
     }
 
-    public void initial_child_frag(){
+    public void initial_child_frag(){ //初始化inner_fragment顯示的內容
         inner_diary_fragment inner_diary_fragment = new inner_diary_fragment();
         deliver_data_to_child_frag(inner_diary_fragment);
         setFragment(inner_diary_fragment);

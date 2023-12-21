@@ -167,8 +167,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
             android:layout_weight="0.5"
-            android:text="取消"
-            android:visibility="invisible" />
+            android:text="取消" />
 
         <Button
             android:id="@+id/confirm_button"

@@ -27,14 +27,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-
+//此為diary選項用來顯示特定日期的內容
 public class inner_diary_fragment extends Fragment {
-    LinearLayout dynamicLayout;
-    String date_str;
+    private LinearLayout dynamicLayout;
+    private String date_str;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    DocumentReference docRef;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,16 +48,16 @@ public class inner_diary_fragment extends Fragment {
         dynamicLayout = view.findViewById(R.id.inner_diary_linearLayout);
     }
 
-    public void getData(){
+    public void getData(){ //取得日期參數
         Bundle args = getArguments();
         if (args != null) {
             date_str = args.getString("date str");
         }
     }
 
-    public void CheckDateExist(String dateString){
-        docRef = db.collection("date").document(dateString);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+    public void CheckDateExist(String dateString){ //檢查資料庫中是否存在此日期
+        db.collection("users").document(login_username.getInstance().getUsername()).collection("date").document(dateString).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -77,8 +75,8 @@ public class inner_diary_fragment extends Fragment {
         });
     }
 
-    public void getDataFromDataBase(String dateString){
-        db.collection("date").document(dateString).collection("foods").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    public void getDataFromDataBase(String dateString){ //從資料庫取得特定日期儲存的所有食物
+        db.collection("users").document(login_username.getInstance().getUsername()).collection("date").document(dateString).collection("foods").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -102,7 +100,7 @@ public class inner_diary_fragment extends Fragment {
         });
     }
 
-    public void addItem(String food_name, int calories, double carbohydrate, double protein, double fat, int sodium, int quantity, String documentID){
+    public void addItem(String food_name, int calories, double carbohydrate, double protein, double fat, int sodium, int quantity, String documentID){ //用來新增顯示的食物物件
         TextView textview = new TextView(getContext());
         SpannableStringBuilder builder = new SpannableStringBuilder();
 
@@ -145,12 +143,12 @@ public class inner_diary_fragment extends Fragment {
         layoutParams.setMargins(0, 10, 0, 0);
         textview.setLayoutParams(layoutParams);
 
-        textview.setPadding(15,0,15,10);
+        textview.setPadding(15,0,15,10); //設置textView和外框的間距
 
         int drawableResourceId = R.drawable.diary_fooditem_border; //設置邊框
-        textview.setBackground(ContextCompat.getDrawable(requireContext(), drawableResourceId));
+        textview.setBackground(ContextCompat.getDrawable(requireContext(), drawableResourceId)); //設置背景
 
-        textview.setOnClickListener(new View.OnClickListener() {
+        textview.setOnClickListener(new View.OnClickListener() { //點選指定textView能跳至ShowFoodDataActivity顯示詳細資訊
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();

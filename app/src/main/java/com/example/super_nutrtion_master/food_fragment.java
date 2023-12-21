@@ -9,9 +9,9 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+//此為food選項用來瀏覽食物的頁面
 public class food_fragment extends Fragment {
-
-    Button search_button;
+    private Button search_button;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class food_fragment extends Fragment {
         search_button = view.findViewById(R.id.search);
     }
 
-    public void search(){
+    public void search(){ //點選搜尋後跳至FoodSearchActivity
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
