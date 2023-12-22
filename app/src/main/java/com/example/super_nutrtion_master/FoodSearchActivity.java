@@ -29,7 +29,7 @@ public class FoodSearchActivity extends AppCompatActivity {
 
     private EditText keywordText;
     private Button foodSearch_button, back_button;
-    private String keyword, source, dateStr;
+    private String keyword, source, dateStr = selectedDate.getInstance().getDateString();
     private ListView foodList;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -53,12 +53,6 @@ public class FoodSearchActivity extends AppCompatActivity {
     public void IntentJudgment(){
         if(getIntent().hasExtra("source")) {
             source = getIntent().getStringExtra("source");
-
-            if (source.equals("diary_frag_addFood")) {
-                if(getIntent().hasExtra("dateStr")) {
-                    dateStr = getIntent().getStringExtra("dateStr");
-                }
-            }
         }
     }
 
@@ -130,9 +124,6 @@ public class FoodSearchActivity extends AppCompatActivity {
         Bundle fd_bundle = new Bundle();
         fd_bundle.putString("source", source);
         fd_bundle.putString("food_name", food_name);
-        if (source.equals("diary_frag_addFood")) {
-            fd_bundle.putString("dateStr", dateStr);
-        }
 
         Intent fd_intent = new Intent();
         fd_intent.setClass(FoodSearchActivity.this, ShowFoodDataActivity.class);

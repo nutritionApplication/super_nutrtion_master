@@ -2,6 +2,7 @@ package com.example.super_nutrtion_master;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,15 +41,15 @@ public class MainActivity extends AppCompatActivity {
         if(getIntent().hasExtra("fragmentToShow")){
             String fragTag = getIntent().getStringExtra("fragmentToShow");
             if(fragTag.equals("user_frag")){
-                bottom_menu.setSelectedItemId(R.id.user);
+                bottom_menu.setSelectedItemId(R.id.user); //bottomMenu的選項設為user
                 setFragment(user_fragment);
             }
             else if(fragTag.equals("diary_frag")){
-                bottom_menu.setSelectedItemId(R.id.diary);
+                bottom_menu.setSelectedItemId(R.id.diary); //bottomMenu的選項設為diary
                 setFragment(diary_fragment);
             }
             else if(fragTag.equals("food_frag")){
-                bottom_menu.setSelectedItemId(R.id.food);
+                bottom_menu.setSelectedItemId(R.id.food); //bottomMenu的選項設為food
                 setFragment(food_fragment);
             }
         }

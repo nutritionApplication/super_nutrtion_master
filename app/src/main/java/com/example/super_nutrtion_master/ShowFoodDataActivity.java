@@ -38,7 +38,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
     private TextView food_name_view, calories_view, carbohydrate_view, protein_view, fat_view, sodium_view, food_quantity_view;
     private ImageView food_picture;
     private EditText food_quantity_value;
-    private String source, food_name, dateStr, documentID;
+    private String source, food_name, documentID, dateStr = selectedDate.getInstance().getDateString();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private double carbohydrate, protein, fat;
@@ -86,16 +86,9 @@ public class ShowFoodDataActivity extends AppCompatActivity {
             if(source.equals("diary_frag_addFood")){
                 Delete_button.setVisibility(View.INVISIBLE);
                 Confirm_button.setVisibility(View.INVISIBLE);
-                if(getIntent().hasExtra("dateStr")){
-                    dateStr = getIntent().getStringExtra("dateStr");
-                }
-
             }
             else if(source.equals("diary_frag_editFood")){
                 Add_button.setVisibility(View.INVISIBLE);
-                if(getIntent().hasExtra("dateStr")) {
-                    dateStr = getIntent().getStringExtra("dateStr");
-                }
                 if(getIntent().hasExtra("quantity")){
                     quantity_para = getIntent().getIntExtra("quantity",1);
                     food_quantity_value.setText(String.valueOf(quantity_para));

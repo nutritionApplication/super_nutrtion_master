@@ -181,63 +181,65 @@ public class UserdataActivity extends AppCompatActivity {
         protein = Math.round((weight * protein_Mag) * 10.0) / 10.0;
         fat = Math.round((TDEE / 5 / 9) * 100.0) / 100.0;
 
-        if(TDEE < 1350){
-            Whole_grains = 1.5;
-            LFEM = 3;
-            Dairy = 1.5;
-            Vegetables = 3;
-            Fruits = 2;
-            oils_and_fats = 3;
-        }
-        else if(TDEE >= 1350 && TDEE < 1650){
-            Whole_grains = 2.5;
-            LFEM = 4;
-            Dairy = 1.5;
-            Vegetables = 3;
-            Fruits = 2;
-            oils_and_fats = 3;
-        }
-        else if (TDEE >= 1650 && TDEE < 1900) {
-            Whole_grains = 3;
-            LFEM = 5;
-            Dairy = 1.5;
-            Vegetables = 3;
-            Fruits = 2;
-            oils_and_fats = 4;
-        }
-        else if(TDEE >= 1900 && TDEE < 2100){
-            Whole_grains = 3;
-            LFEM = 6;
-            Dairy = 1.5;
-            Vegetables = 4;
-            Fruits = 3;
-            oils_and_fats = 5;
-        }
-        else if(TDEE >= 2100 && TDEE < 2350){
-            Whole_grains = 3.5;
-            LFEM = 6;
-            Dairy = 1.5;
-            Vegetables = 4;
-            Fruits = 3.5;
-            oils_and_fats = 5;
-        }
-        else if(TDEE >= 2350 && TDEE < 2600){
-            Whole_grains = 4;
-            LFEM = 7;
-            Dairy = 1.5;
-            Vegetables = 5;
-            Fruits = 4;
-            oils_and_fats = 6;
-        }
-        else if(TDEE >= 2600){
-            Whole_grains = 4;
-            LFEM = 8;
-            Dairy = 2;
-            Vegetables = 5;
-            Fruits = 4;
-            oils_and_fats = 7;
-        }
-        OFNS = oils_and_fats + nuts_and_seeds;
+        //------------------------------六大類食物已廢棄，以下為廢棄範圍----------------------------//
+        //if(TDEE < 1350){
+        //    Whole_grains = 1.5;
+        //    LFEM = 3;
+        //    Dairy = 1.5;
+        //    Vegetables = 3;
+        //    Fruits = 2;
+        //    oils_and_fats = 3;
+        //}
+        //else if(TDEE >= 1350 && TDEE < 1650){
+        //    Whole_grains = 2.5;
+        //    LFEM = 4;
+        //    Dairy = 1.5;
+        //    Vegetables = 3;
+        //    Fruits = 2;
+        //    oils_and_fats = 3;
+        //}
+        //else if (TDEE >= 1650 && TDEE < 1900) {
+        //    Whole_grains = 3;
+        //   LFEM = 5;
+        //    Dairy = 1.5;
+        //    Vegetables = 3;
+        //    Fruits = 2;
+        //    oils_and_fats = 4;
+        //}
+        //else if(TDEE >= 1900 && TDEE < 2100){
+        //    Whole_grains = 3;
+        //    LFEM = 6;
+        //    Dairy = 1.5;
+        //    Vegetables = 4;
+        //    Fruits = 3;
+        //    oils_and_fats = 5;
+        //}
+        //else if(TDEE >= 2100 && TDEE < 2350){
+        //    Whole_grains = 3.5;
+        //    LFEM = 6;
+        //    Dairy = 1.5;
+        //    Vegetables = 4;
+        //    Fruits = 3.5;
+        //    oils_and_fats = 5;
+        //}
+        //else if(TDEE >= 2350 && TDEE < 2600){
+        //    Whole_grains = 4;
+        //    LFEM = 7;
+        //    Dairy = 1.5;
+        //    Vegetables = 5;
+        //    Fruits = 4;
+        //    oils_and_fats = 6;
+        //}
+        //else if(TDEE >= 2600){
+        //    Whole_grains = 4;
+        //    LFEM = 8;
+        //    Dairy = 2;
+        //    Vegetables = 5;
+        //    Fruits = 4;
+        //    oils_and_fats = 7;
+        //}
+        //OFNS = oils_and_fats + nuts_and_seeds;
+        //-------------------------------------------------------------//
     }
 
     public void writeDataToDataBase(){ //將資料寫入資料庫
@@ -257,14 +259,16 @@ public class UserdataActivity extends AppCompatActivity {
         userData.put("protein", protein);
         userData.put("fat", fat);
         userData.put("sodium", sodium);
-        userData.put("Whole_grains", Whole_grains); //全榖雜糧類
-        userData.put("LFEM", LFEM); //豆蛋肉魚類
-        userData.put("Dairy", Dairy); //乳製品類
-        userData.put("Vegetables", Vegetables); //蔬菜類
-        userData.put("Fruits", Fruits); //水果類
-        userData.put("oils_and_fats", oils_and_fats); //油脂與脂肪類
-        userData.put("nuts_and_seeds", nuts_and_seeds); //堅果與種子類
-        userData.put("OFNS", OFNS); //油脂與脂肪類 + 堅果與種子類
+        //----------------------------六大類食物已廢棄--------------------------------//
+        //userData.put("Whole_grains", Whole_grains); //全榖雜糧類
+        //userData.put("LFEM", LFEM); //豆蛋肉魚類
+        //userData.put("Dairy", Dairy); //乳製品類
+        //userData.put("Vegetables", Vegetables); //蔬菜類
+        //userData.put("Fruits", Fruits); //水果類
+        //userData.put("oils_and_fats", oils_and_fats); //油脂與脂肪類
+        //userData.put("nuts_and_seeds", nuts_and_seeds); //堅果與種子類
+        //userData.put("OFNS", OFNS); //油脂與脂肪類 + 堅果與種子類
+        //-------------------------------------------------------------------------//
 
         db.collection("users").document(login_username.getInstance().getUsername())
                 .set(userData, SetOptions.merge())
@@ -299,14 +303,16 @@ public class UserdataActivity extends AppCompatActivity {
         updateData.put("protein", protein);
         updateData.put("fat", fat);
         updateData.put("sodium", sodium);
-        updateData.put("Whole_grains", Whole_grains); //全榖雜糧類
-        updateData.put("LFEM", LFEM); //豆蛋肉魚類
-        updateData.put("Dairy", Dairy); //乳製品類
-        updateData.put("Vegetables", Vegetables); //蔬菜類
-        updateData.put("Fruits", Fruits); //水果類
-        updateData.put("oils_and_fats", oils_and_fats); //油脂與脂肪類
-        updateData.put("nuts_and_seeds", nuts_and_seeds); //堅果與種子類
-        updateData.put("OFNS", OFNS); //油脂與脂肪類 + 堅果與種子類
+        //----------------------------六大類食物已廢棄--------------------------------//
+        //updateData.put("Whole_grains", Whole_grains); //全榖雜糧類
+        //updateData.put("LFEM", LFEM); //豆蛋肉魚類
+        //updateData.put("Dairy", Dairy); //乳製品類
+        //updateData.put("Vegetables", Vegetables); //蔬菜類
+        //updateData.put("Fruits", Fruits); //水果類
+        //updateData.put("oils_and_fats", oils_and_fats); //油脂與脂肪類
+        //updateData.put("nuts_and_seeds", nuts_and_seeds); //堅果與種子類
+        //updateData.put("OFNS", OFNS); //油脂與脂肪類 + 堅果與種子類
+        //-------------------------------------------------------------------------//
         db.collection("users").document(login_username.getInstance().getUsername()).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
