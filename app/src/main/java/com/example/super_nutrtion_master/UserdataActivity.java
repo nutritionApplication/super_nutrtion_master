@@ -148,7 +148,7 @@ public class UserdataActivity extends AppCompatActivity {
     }
 
     public void calculateHealthIndicator(){ //計算各項健康指標
-        BMI = Math.round(weight / (Math.sqrt(height / 100.0)) * 100.0) / 100.0;  //四捨五入到小數第二位
+        BMI = Math.round(weight / Math.pow(height / 100.0, 2) * 100.0) / 100.0;  //四捨五入到小數第二位
         BMR = (int)Math.round(10 * weight + 6.25 * height - 4.92 * age + (166 * gender - 161));
         switch(exercise){
             case 0:{
