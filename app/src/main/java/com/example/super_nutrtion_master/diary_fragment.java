@@ -46,6 +46,7 @@ public class diary_fragment extends Fragment {
         settingDate();
         selectDate();
         addFood();
+        open_calendar();
         return view;
     }
 
@@ -98,7 +99,9 @@ public class diary_fragment extends Fragment {
         calendar_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent calendar_intent = new Intent();
+                calendar_intent.setClass(getActivity(), CalenderActivity.class);
+                startActivity(calendar_intent);
             }
         });
     }
