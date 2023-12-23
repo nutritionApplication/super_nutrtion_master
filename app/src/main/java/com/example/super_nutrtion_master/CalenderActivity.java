@@ -95,10 +95,19 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
     public void showMonthPickerDialog(View v) {
-        // 獲取當前日期
+        //設置月份選擇器預設的年分與月份
         final Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM", Locale.TAIWAN);
+        Date date;
+        try {
+            date = dateFormat.parse(selectedDate.getInstance().getMonthString());
+        } catch (ParseException e) {
+            date = new Date(); // 解析失敗的話，使用當前日期
+            e.printStackTrace();
+        }
+        calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
