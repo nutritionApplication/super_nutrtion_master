@@ -10,10 +10,8 @@
         android:id="@+id/diaryFrag_top_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:theme="@style/ToolbarTheme"
         app:layout_constraintBottom_toTopOf="@+id/diary_child_frag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,21 +26,23 @@
             tools:layout_editor_absoluteX="14dp"
             tools:layout_editor_absoluteY="7dp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/datePicker_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="70dp"
             android:text="日期"
+            android:background="@drawable/button_style"
             tools:layout_editor_absoluteX="14dp"
             tools:layout_editor_absoluteY="7dp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/addFood_button"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="20dp"
             android:text="新增"
+            android:background="@drawable/button_style"
             tools:layout_editor_absoluteX="14dp"
             tools:layout_editor_absoluteY="7dp" />
 

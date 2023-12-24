@@ -5,39 +5,52 @@
     android:layout_height="match_parent"
     tools:context=".user_fragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme">
+
+        <android.widget.Button
+            android:id="@+id/logout_button"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_style"
+            android:text="登出"
+            android:textSize="15sp" />
+
+        <android.widget.Button
+            android:id="@+id/edit_button"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="170dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_style"
+            android:text="編輯"
+            android:textSize="15sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="69dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/logout_button"
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="登出" />
-
-            <Button
-                android:id="@+id/edit_button"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="170dp"
-                android:layout_marginTop="10dp"
-                android:text="編輯" />
-
-
-        </LinearLayout>
+            android:layout_height="1dp"
+            android:layout_marginTop="50dp"
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -46,7 +59,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="性別"
+                android:text="性別 : "
+                android:textSize="20sp"
                 android:textAlignment="center" />
 
             <TextView
@@ -55,13 +69,20 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView"
+                android:text=""
+                android:textSize="20sp"
                 android:textAlignment="center" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="110dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -70,7 +91,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="年齡"
+                android:text="年齡 : "
+                android:textSize="20sp"
                 android:textAlignment="center" />
 
             <TextView
@@ -79,13 +101,20 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView"
+                android:text=""
+                android:textSize="20sp"
                 android:textAlignment="center" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="110dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -94,7 +123,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="身高(公分)"
+                android:text="身高(公分) : "
+                android:textSize="20sp"
                 android:textAlignment="center" />
 
             <TextView
@@ -103,13 +133,20 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView"
+                android:text=""
+                android:textSize="20sp"
                 android:textAlignment="center" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="110dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -118,7 +155,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="體重(公斤)"
+                android:text="體重(公斤) : "
+                android:textSize="20sp"
                 android:textAlignment="center" />
 
             <TextView
@@ -127,13 +165,20 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView"
+                android:text=""
+                android:textSize="20sp"
                 android:textAlignment="center" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="110dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -142,7 +187,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="運動量"
+                android:text="運動量 : "
+                android:textSize="20sp"
                 android:textAlignment="center" />
 
             <TextView
@@ -151,9 +197,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView"
+                android:text=""
+                android:textSize="20sp"
                 android:textAlignment="center" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
     </LinearLayout>
 
