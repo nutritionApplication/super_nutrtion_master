@@ -23,12 +23,17 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
 
 //此為diary選項用來顯示特定日期的內容
 public class inner_diary_fragment extends Fragment {
@@ -123,6 +128,7 @@ public class inner_diary_fragment extends Fragment {
                         addItem(food_name, food_calories, food_carbohydrate, food_protein, food_fat, food_sodium, quantity, documentID);
                     }
                     add_H_I(); //等待前面的動作完成再開始計算，避免發生同步錯誤
+                    updateEatenFood();
                 }
                 else {
                     Log.d(MotionEffect.TAG, "Error getting documents: ", task.getException());
@@ -338,6 +344,26 @@ public class inner_diary_fragment extends Fragment {
         sodium_textview_layoutParams.setMargins(0, 20, 0, 20);
         sodium_textview.setLayoutParams(sodium_textview_layoutParams);
         dynamicLayout.addView(sodium_textview);
+    }
+
+    public void updateEatenFood(){
+        Map<String, Object> updateData = new HashMap<>();
+        updateData.put("consumedCalories", total_calories);
+        updateData.put("consumedCarbohydrate", Math.round(total_carbohydrate * 100.0) / 100.0);
+        updateData.put("consumedProtein", Math.round(total_protein * 100.0) / 100.0);
+        updateData.put("consumedFat", Math.round(total_fat * 100.0) / 100.0);
+        updateData.put("consumedSodium", total_sodium);
+        db.collection("users").document(login_username.getInstance().getUsername()).collection("date").document(selectedDate.getInstance().getDateString()).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "DocumentSnapshot successfully updated!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error updating document", e);
+            }
+        });
     }
 
 }

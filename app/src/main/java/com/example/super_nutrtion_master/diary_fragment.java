@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -29,7 +30,7 @@ public class diary_fragment extends Fragment {
     private Calendar calendar = Calendar.getInstance();
     private DatePickerDialog.OnDateSetListener datePicker;
     private String myFormat = "yyyy-MM-dd", dateString;
-    private SimpleDateFormat dateFormat;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.TAIWAN);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class diary_fragment extends Fragment {
         settingDate();
         selectDate();
         addFood();
+        open_calendar();
         return view;
     }
 
@@ -69,13 +71,14 @@ public class diary_fragment extends Fragment {
     }
 
     public void selectDate(){ //取得日期選擇器所選的日期，將日期選擇器按鈕上的日期設為所選日期，並初始化inner_fragment
+
         datePicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 calendar.set(Calendar.YEAR, i);
                 calendar.set(Calendar.MONTH , i1);
                 calendar.set(Calendar.DAY_OF_MONTH, i2);
-                dateFormat = new SimpleDateFormat(myFormat, Locale.TAIWAN);
+                //dateFormat = new SimpleDateFormat(myFormat, Locale.TAIWAN);
                 dateString = dateFormat.format(calendar.getTime());
                 selectedDate.getInstance().setDateString(dateString);
                 settingDate();
@@ -84,11 +87,25 @@ public class diary_fragment extends Fragment {
         datePicker_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //設置日期選擇器預設的日期
+                Date date;
+                try {
+                    date = dateFormat.parse(selectedDate.getInstance().getDateString());
+                } catch (ParseException e) {
+                    date = new Date(); // 解析失敗的話，使用當前日期
+                    e.printStackTrace();
+                }
+                calendar.setTime(date);
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
                 DatePickerDialog dialog = new DatePickerDialog(getActivity(),
                         datePicker,
-                        calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH));
+                        year,
+                        month,
+                        day);
                 dialog.show();
             }
         });
@@ -98,7 +115,9 @@ public class diary_fragment extends Fragment {
         calendar_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent calendar_intent = new Intent();
+                calendar_intent.setClass(getActivity(), CalenderActivity.class);
+                startActivity(calendar_intent);
             }
         });
     }
