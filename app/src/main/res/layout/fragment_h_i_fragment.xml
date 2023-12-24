@@ -14,53 +14,109 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:text="健康營養指標"
+            android:layout_marginTop="20dp"
             android:textSize="45sp"
             android:textAlignment="center"
             android:gravity="center"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/BMI_textView"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="TextView" />
+            android:textSize="25sp"
+            android:gravity="center"
+            android:text="" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/BMR_textView"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="TextView" />
+            android:textSize="25sp"
+            android:gravity="center"
+            android:text="" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/TDEE_textView"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="TextView" />
+            android:textSize="25sp"
+            android:gravity="center"
+            android:text="" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:textSize="20sp"
+            android:textSize="30sp"
+            android:layout_marginTop="40dp"
             android:text="各類營養所需量"
             android:textAlignment="center"
             android:gravity="center"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/protein_textView"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="TextView" />
+            android:textSize="25sp"
+            android:gravity="center"
+            android:text="" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/fat_textView"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="TextView" />
+            android:textSize="25sp"
+            android:gravity="center"
+            android:text="" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/sodium_textView"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="TextView" />
+            android:textSize="25sp"
+            android:gravity="center"
+            android:text="" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
         <!--六大類食物已廢棄-->
         <!--

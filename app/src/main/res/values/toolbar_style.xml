@@ -8,7 +8,7 @@
         <!--更改Toolbar所有文字的大小-->
         <item name="android:textSize">15dp</item>
         <!--更改Toolbar背景顏色-->
-        <item name="android:background">@color/pink_blue</item>
+        <item name="android:background">@color/B3DEFF</item>
         <!--設定Menu視窗不覆蓋到Toolbar-->
         <item name="overlapAnchor">false</item>
     </style>
