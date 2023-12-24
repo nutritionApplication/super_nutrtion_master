@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private HI_fragment HI_fragment = new HI_fragment();
     private diary_fragment diary_fragment = new diary_fragment();
     private food_fragment food_fragment = new food_fragment();
+    private recipe_fragment recipe_fragment = new recipe_fragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 bottom_menu.setSelectedItemId(R.id.food); //bottomMenu的選項設為food
                 setFragment(food_fragment);
             }
+            else if(fragTag.equals("recipe_frag")){
+                bottom_menu.setSelectedItemId(R.id.recipe);
+                setFragment(recipe_fragment);
+            }
         }
     }
 
@@ -71,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.food:
                         setFragment(food_fragment);
+                        return true;
+                    case R.id.recipe:
+                        setFragment(recipe_fragment);
                         return true;
                 }
                 return false;
