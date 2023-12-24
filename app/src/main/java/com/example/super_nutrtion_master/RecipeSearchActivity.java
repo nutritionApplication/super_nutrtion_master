@@ -24,34 +24,32 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-//此為用關鍵字搜尋食物的頁面
-public class FoodSearchActivity extends AppCompatActivity {
+
+public class RecipeSearchActivity extends AppCompatActivity {
 
     private EditText keywordText;
     private Button foodSearch_button, back_button;
-    private String keyword, source, dateStr = selectedDate.getInstance().getDateString();
+    private String keyword, source;
     private ListView foodList;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_search);
+        setContentView(R.layout.activity_recipe_search);
         BindById();
         IntentJudgment();
         search();
         Back();
     }
-
     public void BindById(){
-        foodSearch_button = findViewById(R.id.FoodSearch);
+        foodSearch_button = findViewById(R.id.recipeSearch);
         back_button = findViewById(R.id.back_button);
         keywordText = findViewById(R.id.KeywordEditText);
         foodList = findViewById(R.id.food_list);
     }
 
     public void IntentJudgment(){
-        if (getIntent().hasExtra("source")) {
+        if(getIntent().hasExtra("source")) {
             source = getIntent().getStringExtra("source");
         }
     }
@@ -72,15 +70,11 @@ public class FoodSearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Bundle back_bundle = new Bundle();
-                if(source.equals("diary_frag_addFood")){
-                    back_bundle.putString("fragmentToShow", "diary_frag");
-                }
-                else if(source.equals("food_frag")){
-                    back_bundle.putString("fragmentToShow", "food_frag");
-                }
+
+                back_bundle.putString("fragmentToShow", "recipe_frag");
 
                 Intent back_intent = new Intent();
-                back_intent.setClass(FoodSearchActivity.this, MainActivity.class);
+                back_intent.setClass(RecipeSearchActivity.this, MainActivity.class);
                 back_intent.putExtras(back_bundle);
                 back_intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(back_intent);
@@ -95,12 +89,12 @@ public class FoodSearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String food_name = food_name_list.get(position);
-                GotoFoodDataPage(food_name);
+                GotoRecipeDataPage(food_name);
             }
         });
     }
 
-    public void getDataFromDataBase(String keyword){ //從資料庫取得指定食物的資訊
+    public void getDataFromDataBase(String keyword){ // 從資料庫取得指定食物的資訊
         CollectionReference collectRef = db.collection("foods");
         ArrayList<String> food_list = new ArrayList<String>();
         collectRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -120,14 +114,15 @@ public class FoodSearchActivity extends AppCompatActivity {
         });
     }
 
-    public void GotoFoodDataPage(String food_name){ //跳至ShowFoodDataActivity顯示食物資訊
+    public void GotoRecipeDataPage(String food_name){ // 跳至 ShowRecipeActivity 顯示食物資訊
         Bundle fd_bundle = new Bundle();
         fd_bundle.putString("source", source);
         fd_bundle.putString("food_name", food_name);
 
         Intent fd_intent = new Intent();
-        fd_intent.setClass(FoodSearchActivity.this, ShowFoodDataActivity.class);
+        fd_intent.setClass(RecipeSearchActivity.this, ShowRecipeActivity.class);
         fd_intent.putExtras(fd_bundle);
         startActivity(fd_intent);
     }
+
 }

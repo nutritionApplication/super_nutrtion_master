@@ -7,14 +7,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.helper.widget.MotionEffect;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,17 +24,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.List;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import android.widget.ListView;
 import android.content.Context;
-import android.widget.ArrayAdapter;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -106,15 +98,15 @@ public class recipe_fragment extends Fragment {
         food_picture = item_view.findViewById(R.id.recipe_image);
     }
 
-    public void search(){ //點選搜尋後跳至FoodSearchActivity
+    public void search(){ //點選搜尋後跳至 recipeSearchActivity
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("source", "food_frag");
+                bundle.putString("source", "recipe_search");
 
                 Intent intent = new Intent();
-                intent.setClass(getActivity(), FoodSearchActivity.class);
+                intent.setClass(getActivity(), RecipeSearchActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -137,7 +129,6 @@ public class recipe_fragment extends Fragment {
             this.context = context;
             this.resource = resource;
             this.recipe_obj = recipe_obj;
-            Log.d("Recipe", "RecipeAdapter");
         }
 
         @Override
@@ -158,7 +149,6 @@ public class recipe_fragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = convertView;
             ViewHolder viewHolder;
-            Log.d("Recipe", "getView");
 
             if (view == null) {
                 LayoutInflater inflater = LayoutInflater.from(context);
@@ -183,11 +173,27 @@ public class recipe_fragment extends Fragment {
             StringBuilder recipeText = new StringBuilder();
             List<Object> recipeList = currentItem.getRecipe();
 
-            // 處理陣列 逐行印出
-            for (Object ingredient : recipeList) {
-                recipeText.append(ingredient.toString()).append("\n");
+            // 處理陣列 逐行印出 印前5行
+            int linesToShow = 5;
+            for (int i = 0; i < Math.min(linesToShow, recipeList.size()); i++) {
+                recipeText.append(recipeList.get(i).toString()).append("\n");
+            }
+
+            if (recipeList.size() > linesToShow) {
+                recipeText.append("...\n查看更多");
             }
             viewHolder.subtitleTextView.setText(recipeText.toString().trim());
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ShowRecipeActivity.class);
+                    intent.putExtra("source", "recipe_frag");
+                    intent.putExtra("food_name", currentItem.getTitle());
+
+                    context.startActivity(intent);
+                }
+            });
 
             return view;
         }
@@ -223,7 +229,7 @@ public class recipe_fragment extends Fragment {
 
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String food_name = document.getId();
-                        List<Object> food_recipe = (List<Object>) document.get("ingredient");
+                        List<Object> food_recipe = (List<Object>) document.get("recipe");
 
                         getStorageImg(food_name, new OnImageLoadedListener() {
                             @Override
