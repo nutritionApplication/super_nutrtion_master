@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.BaseAdapter;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -60,6 +61,7 @@ public class recipe_fragment extends Fragment {
 
     private ListView recipe_item;
     private ImageView food_picture;
+    private ProgressBar loading_bar;
 
     /**
      * Use this factory method to create a new instance of
@@ -95,6 +97,7 @@ public class recipe_fragment extends Fragment {
     public void BindById(View view, View item_view){
         search_button = view.findViewById(R.id.search);
         recipe_item = view.findViewById(R.id.recipe_item);
+        loading_bar = view.findViewById(R.id.loading_bar);
         food_picture = item_view.findViewById(R.id.recipe_image);
     }
 
@@ -221,6 +224,8 @@ public class recipe_fragment extends Fragment {
     }
 
     public void getDataFromDataBase () {
+        loading_bar.setVisibility(View.VISIBLE);
+
         db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -243,6 +248,7 @@ public class recipe_fragment extends Fragment {
                                             R.layout.fragment_inner_recipe_fragment,
                                             recipeItemList);
                                     recipe_item.setAdapter(recipeAdapter);
+                                    loading_bar.setVisibility(View.GONE);
                                 }
                             }
                         });
@@ -260,25 +266,31 @@ public class recipe_fragment extends Fragment {
     }
 
     public void getStorageImg(String food_name, OnImageLoadedListener listener) {
-        storage.getReference().child(food_name + ".jpg").getBytes(Long.MAX_VALUE).addOnCompleteListener(new OnCompleteListener<byte[]>() { // 設置食物圖片
+        Context context = getContext();
+        if (context != null) {
+            storage.getReference().child(food_name + ".jpg").getBytes(Long.MAX_VALUE)
+                .addOnCompleteListener(new OnCompleteListener<byte[]>() { // 設置食物圖片
 
-            @Override
-            public void onComplete(@NonNull Task<byte[]> task) {
-                if (task.isSuccessful()) {
-                    byte[] imageData = task.getResult();
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, Objects.requireNonNull(imageData).length);
+                    @Override
+                    public void onComplete(@NonNull Task<byte[]> task) {
+                        if (task.isSuccessful()) {
+                            byte[] imageData = task.getResult();
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0,
+                                    Objects.requireNonNull(imageData).length);
 
-                    ImageView food_picture = new ImageView(getContext());
-                    food_picture.setImageBitmap(bitmap);
+                            ImageView food_picture = new ImageView(getContext());
+                            food_picture.setImageBitmap(bitmap);
 
-                    if (listener != null) {
-                        listener.onImageLoaded(food_picture);
+                            if (listener != null) {
+                                listener.onImageLoaded(food_picture);
+                            }
+                        } else {
+                            Log.e("Storage", "Error getting image", task.getException());
+                        }
                     }
-                }
-                else{
-                    Log.e("Storage", "Error getting image", task.getException());
-                }
-            }
-        });
+                });
+        } else {
+            Log.e("recipe", "getContext() is null, food_name: " + food_name);
+        }
     }
 }

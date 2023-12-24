@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ public class ShowRecipeActivity extends AppCompatActivity {
 
     private TextView food_ingredient;
     private TextView food_recipe;
+    private ProgressBar loading_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,7 @@ public class ShowRecipeActivity extends AppCompatActivity {
         food_ingredient = findViewById(R.id.show_food_ingredient);
         food_recipe = findViewById(R.id.show_food_recipe);
         check_food_info_button = findViewById(R.id.check_food_info_button);
+        loading_bar = findViewById(R.id.loading_bar);
     }
 
     public void IntentJudgment(){ //根據開啟此頁面的來源來判斷要顯示的內容以及擷取對應的參數
@@ -87,6 +90,7 @@ public class ShowRecipeActivity extends AppCompatActivity {
     }
 
     public void getFoodData(){ // 從資料庫取得食物的資訊
+        loading_bar.setVisibility(View.VISIBLE);
         db.collection("recipes").document(food_name).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -131,6 +135,7 @@ public class ShowRecipeActivity extends AppCompatActivity {
                     byte[] imageData = task.getResult();
                     Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, Objects.requireNonNull(imageData).length);
                     food_picture.setImageBitmap(bitmap);
+                    loading_bar.setVisibility(View.GONE);
                 }
                 else{
                     Log.e("Storage", "Error getting image", task.getException());
