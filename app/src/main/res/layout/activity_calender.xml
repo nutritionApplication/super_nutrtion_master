@@ -4,52 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".diary_fragment">
+    android:background="@drawable/login_bg2"
+    tools:context=".CalenderActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/diaryFrag_top_toolbar"
+        android:id="@+id/toolbar2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ToolbarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/diary_child_frag"
+        app:layout_constraintBottom_toTopOf="@+id/calendar_frag_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/calendar_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="#00000000"
-            android:src="@drawable/calendar_icon"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="7dp" />
+        <android.widget.Button
+            android:id="@+id/calendar_back"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="返回"
+            android:background="@drawable/button_style"
+            tools:layout_editor_absoluteX="146dp"
+            tools:layout_editor_absoluteY="6dp" />
 
         <android.widget.Button
-            android:id="@+id/datePicker_button"
+            android:id="@+id/MonthPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:text="日期"
+            android:layout_marginLeft="40dp"
+            android:text="月份選擇器"
             android:background="@drawable/button_style"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="7dp" />
-
-        <android.widget.Button
-            android:id="@+id/addFood_button"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="新增"
-            android:background="@drawable/button_style"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="7dp" />
+            tools:layout_editor_absoluteX="146dp"
+            tools:layout_editor_absoluteY="6dp" />
 
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
-        android:id="@+id/diary_child_frag"
+        android:id="@+id/calendar_frag_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
@@ -58,7 +51,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diaryFrag_top_toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
 
     </FrameLayout>
 

@@ -75,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
                         if(DB_password.equals(password)){ //密碼正確
                             login_username.getInstance().setUsername(username); //將使用者名稱設定至login_username，讓所有頁面皆可使用username
                             if(document.contains("TDEE")){ //非首次登入，跳轉到MainActivity開始使用APP
-                                //Toast.makeText(LoginActivity.this, login_username.getInstance().getUsername() + "再次登入", Toast.LENGTH_SHORT).show();
                                 Bundle bundle = new Bundle();
                                 bundle.putString("fragmentToShow", "diary_frag");
                                 Intent login_intent = new Intent();
@@ -85,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
                                 finish();
                             }
                             else{ //首次登入，跳轉到UserdataActivity輸入資料
-                                //Toast.makeText(LoginActivity.this, login_username.getInstance().getUsername() + "首次登入", Toast.LENGTH_SHORT).show();
                                 Bundle bundle = new Bundle();
                                 bundle.putString("source", "LoginActivity");
                                 Intent login_intent = new Intent();

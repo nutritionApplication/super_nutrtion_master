@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_bg2"
     tools:context=".UserdataActivity">
 
     <LinearLayout
@@ -31,6 +32,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="性別"
+                android:textSize="20sp"
                 android:textAlignment="center" />
 
             <RadioGroup
@@ -44,13 +46,15 @@
                     android:id="@+id/male_radioButton"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:text="男" />
+                    android:text="男"
+                    android:textSize="20sp"/>
 
                 <RadioButton
                     android:id="@+id/female_radioButton"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:text="女" />
+                    android:text="女"
+                    android:textSize="20sp"/>
             </RadioGroup>
 
         </LinearLayout>
@@ -67,6 +71,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="年齡"
+                android:textSize="20sp"
                 android:textAlignment="center" />
 
             <EditText
@@ -75,6 +80,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textSize="20sp"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -90,6 +96,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="身高(公分)"
+                android:textSize="20sp"
                 android:textAlignment="center" />
 
             <EditText
@@ -98,6 +105,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textSize="20sp"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -114,6 +122,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="體重(公斤)"
+                android:textSize="20sp"
                 android:textAlignment="center" />
 
             <EditText
@@ -122,6 +131,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textSize="20sp"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -137,14 +147,17 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="運動量"
+                android:textSize="20sp"
                 android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/exercise_degree_spinner"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
+                android:textSize="20sp"
                 android:entries="@array/exercise_degree" />
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -160,22 +173,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
             android:layout_weight="0.5"
-            android:text="取消" />
+            android:text="取消"
+            android:textSize="15sp"
+            android:background="@drawable/button_style"/>
 
-        <Button
+        <android.widget.Button
             android:id="@+id/confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.5"
             android:text="確認"
+            android:textSize="15sp"
+            android:background="@drawable/button_style"
             android:layout_marginLeft="20dp"/>
 
     </LinearLayout>

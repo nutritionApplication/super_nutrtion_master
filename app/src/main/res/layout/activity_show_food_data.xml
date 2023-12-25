@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_bg2"
     tools:context=".ShowFoodDataActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -11,19 +12,19 @@
         android:layout_width="415dp"
         android:layout_height="61dp"
         android:layout_marginBottom="1dp"
-        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:theme="@style/ToolbarTheme"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/foodDataPageBackButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="返回"
+            android:background="@drawable/button_style"
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="9dp" />
 
@@ -40,11 +41,12 @@
             android:textColor="@color/white"
             android:textSize="20sp"/>
 
-        <Button
+        <android.widget.Button
             android:id="@+id/foodDataPageAddButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="新增"
+            android:background="@drawable/button_style"
             android:layout_marginLeft="20dp"
             tools:layout_editor_absoluteX="302dp"
             tools:layout_editor_absoluteY="7dp" />
@@ -111,6 +113,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="數量"
+                        android:textSize="20sp"
                         android:textAlignment="center" />
 
                     <EditText
@@ -130,18 +133,24 @@
                     android:layout_height="55dp"
                     android:orientation="horizontal">
 
-                    <Button
+                    <android.widget.Button
                         android:id="@+id/foodDataPageDeleteButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/button_style"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:text="刪除" />
 
-                    <Button
+                    <android.widget.Button
                         android:id="@+id/foodDataPageConfirmButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/button_style"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:text="確認" />
                 </LinearLayout>
 
@@ -158,7 +167,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="營養成分/一份 : "
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textAlignment="center"
                 android:gravity="center"/>
 
@@ -172,7 +181,8 @@
                 android:id="@+id/foodDataPage_calories_view"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="熱量" />
+                android:text="熱量"
+                android:textSize="20sp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -184,7 +194,8 @@
                 android:id="@+id/foodDataPage_carbohydrate_view"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="碳水化合物" />
+                android:text="碳水化合物"
+                android:textSize="20sp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -196,7 +207,8 @@
                 android:id="@+id/foodDataPage_protein_view"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="蛋白質" />
+                android:text="蛋白質"
+                android:textSize="20sp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -208,7 +220,8 @@
                 android:id="@+id/foodDataPage_fat_view"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="脂肪" />
+                android:text="脂肪"
+                android:textSize="20sp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -220,7 +233,8 @@
                 android:id="@+id/foodDataPage_sodium_view"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="鈉" />
+                android:text="鈉"
+                android:textSize="20sp"/>
 
         </LinearLayout>
 

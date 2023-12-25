@@ -3,19 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".inner_diary_fragment">
+    tools:context=".inner_calendar_fragment">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/inner_diary_linearLayout"
+            android:id="@+id/inner_calendar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
     </ScrollView>
-
 </FrameLayout>

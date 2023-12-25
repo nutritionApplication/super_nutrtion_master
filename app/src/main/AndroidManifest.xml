@@ -16,13 +16,22 @@
         android:theme="@style/Base.Theme.Super_nutrtion_master"
         tools:targetApi="31">
         <activity
+            android:name=".RecipeSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CalenderActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".UserdataActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ShowFoodDataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ShowRecipeActivity"
             android:exported="false" />
         <activity
             android:name=".FoodSearchActivity"
@@ -35,6 +44,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

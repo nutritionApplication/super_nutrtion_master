@@ -38,7 +38,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
     private TextView food_name_view, calories_view, carbohydrate_view, protein_view, fat_view, sodium_view, food_quantity_view;
     private ImageView food_picture;
     private EditText food_quantity_value;
-    private String source, food_name, dateStr, documentID;
+    private String source, food_name, documentID, dateStr = selectedDate.getInstance().getDateString();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private double carbohydrate, protein, fat;
@@ -86,16 +86,9 @@ public class ShowFoodDataActivity extends AppCompatActivity {
             if(source.equals("diary_frag_addFood")){
                 Delete_button.setVisibility(View.INVISIBLE);
                 Confirm_button.setVisibility(View.INVISIBLE);
-                if(getIntent().hasExtra("dateStr")){
-                    dateStr = getIntent().getStringExtra("dateStr");
-                }
-
             }
             else if(source.equals("diary_frag_editFood")){
                 Add_button.setVisibility(View.INVISIBLE);
-                if(getIntent().hasExtra("dateStr")) {
-                    dateStr = getIntent().getStringExtra("dateStr");
-                }
                 if(getIntent().hasExtra("quantity")){
                     quantity_para = getIntent().getIntExtra("quantity",1);
                     food_quantity_value.setText(String.valueOf(quantity_para));
@@ -104,7 +97,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                     documentID = getIntent().getStringExtra("documentID");
                 }
             }
-            else if(source.equals("food_frag")){
+            else if(source.equals("food_frag") || source.equals("receipt_show")){
                 food_quantity_view.setVisibility(View.INVISIBLE);
                 food_quantity_value.setVisibility(View.INVISIBLE);
                 Delete_button.setVisibility(View.INVISIBLE);
@@ -179,9 +172,16 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                     back_bundle.putString("source", "food_frag");
                     back_intent.setClass(ShowFoodDataActivity.this, FoodSearchActivity.class);
                 }
+                else if(source.equals("receipt_show")){
+                    back_bundle.putString("source", "recipe_frag");
+                    back_bundle.putString("fragmentToShow", "recipe_frag");
+                    back_bundle.putString("food_name", food_name);
+                    back_intent.setClass(ShowFoodDataActivity.this, ShowRecipeActivity.class);
+                }
                 back_intent.putExtras(back_bundle);
                 back_intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(back_intent);
+                finish();  // 關閉當前 Activity
             }
         });
     }
