@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 setFragment(food_fragment);
             }
             else if(fragTag.equals("recipe_frag")){
-                bottom_menu.setSelectedItemId(R.id.recipe);
+                bottom_menu.setSelectedItemId(R.id.recipe); //bottomMenu的選項設為recipe
                 setFragment(recipe_fragment);
             }
         }

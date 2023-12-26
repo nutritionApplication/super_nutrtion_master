@@ -10,7 +10,6 @@
         android:id="@+id/food_frag_topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="58dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ToolbarTheme"
         app:layout_constraintBottom_toTopOf="@+id/food_child_frag"
@@ -32,9 +31,9 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/food_type_tab"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="63dp"
+        android:layout_width="408dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
