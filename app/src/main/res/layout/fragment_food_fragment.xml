@@ -43,19 +43,19 @@
             android:id="@+id/tabItem1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="類別1" />
+            android:text="飯" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="類別2" />
+            android:text="麵" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="類別3" />
+            android:text="便當" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabItem4"
@@ -89,6 +89,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/food_frag_topbar">
 
+        <ListView
+            android:id="@+id/foodlist2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </FrameLayout>
 
 
