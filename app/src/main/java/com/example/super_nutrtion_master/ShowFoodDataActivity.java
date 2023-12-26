@@ -97,7 +97,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                     documentID = getIntent().getStringExtra("documentID");
                 }
             }
-            else if(source.equals("food_frag") || source.equals("receipt_show")){
+            else if(source.equals("food_frag") || source.equals("food_frag_item") || source.equals("receipt_show")){
                 food_quantity_view.setVisibility(View.INVISIBLE);
                 food_quantity_value.setVisibility(View.INVISIBLE);
                 Delete_button.setVisibility(View.INVISIBLE);
@@ -172,6 +172,10 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                     back_bundle.putString("source", "food_frag");
                     back_intent.setClass(ShowFoodDataActivity.this, FoodSearchActivity.class);
                 }
+                else if(source.equals("food_frag_item")){
+                    back_bundle.putString("fragmentToShow", "food_frag");
+                    back_intent.setClass(ShowFoodDataActivity.this, MainActivity.class);
+                }
                 else if(source.equals("receipt_show")){
                     back_bundle.putString("source", "recipe_frag");
                     back_bundle.putString("fragmentToShow", "recipe_frag");
@@ -211,6 +215,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                 delete_intent.setClass(ShowFoodDataActivity.this, MainActivity.class);
                 delete_intent.putExtras(delete_bundle);
                 startActivity(delete_intent);
+                finish();
             }
         });
     }
@@ -278,6 +283,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                     Add_intent.setClass(ShowFoodDataActivity.this, MainActivity.class);
                     Add_intent.putExtras(Add_bundle);
                     startActivity(Add_intent);
+                    finish();
                 }
             }
         });
@@ -299,6 +305,7 @@ public class ShowFoodDataActivity extends AppCompatActivity {
                 Confrim_intent.setClass(ShowFoodDataActivity.this, MainActivity.class);
                 Confrim_intent.putExtras(Confrim_bundle);
                 startActivity(Confrim_intent);
+                finish();
             }
         });
     }

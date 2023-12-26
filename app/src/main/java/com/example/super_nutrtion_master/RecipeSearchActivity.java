@@ -78,6 +78,7 @@ public class RecipeSearchActivity extends AppCompatActivity {
                 back_intent.putExtras(back_bundle);
                 back_intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(back_intent);
+                finish();
             }
         });
     }
