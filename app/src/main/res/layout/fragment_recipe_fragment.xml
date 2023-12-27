@@ -26,8 +26,69 @@
             android:background="@drawable/button_style"
             tools:layout_editor_absoluteX="293dp"
             tools:layout_editor_absoluteY="7dp" />
-
     </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_frag_topbar">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/food_type_tab"
+            android:layout_width="408dp"
+            android:layout_height="55dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabMode="auto">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="主食" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="小吃" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="甜點" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="零食" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="湯品" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="飲品" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/loading_bar"
@@ -40,66 +101,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:indeterminateTint="@color/C_828FFF"/>
 
-<!--    <com.google.android.material.tabs.TabLayout-->
-<!--        android:id="@+id/food_type_tab"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:layout_marginTop="63dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:tabMode="auto">-->
-
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:id="@+id/tabItem1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="類別1" />-->
-
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:id="@+id/tabItem2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="類別2" />-->
-
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:id="@+id/tabItem3"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="類別3" />-->
-
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:id="@+id/tabItem4"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="類別4" />-->
-
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:id="@+id/tabItem5"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="類別5" />-->
-
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:id="@+id/tabItem6"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="類別6" />-->
-
-<!--    </com.google.android.material.tabs.TabLayout>-->
-
     <ListView
         android:id="@+id/recipe_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="110dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:scrollbars="vertical" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,6 +49,7 @@ public class recipe_fragment extends Fragment {
     private ListView recipe_item;
     private ImageView food_picture;
     private ProgressBar loading_bar;
+    private TabLayout tablayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,8 @@ public class recipe_fragment extends Fragment {
 
         BindById(view, item_view);
         search();
-        getDataFromDataBase();
+        setDefaultFoodType();
+        selectFoodType();
         return view;
     }
     @Override
@@ -75,6 +78,7 @@ public class recipe_fragment extends Fragment {
         recipe_item = view.findViewById(R.id.recipe_item);
         loading_bar = view.findViewById(R.id.loading_bar);
         food_picture = item_view.findViewById(R.id.recipe_image);
+        tablayout = view.findViewById(R.id.food_type_tab);
     }
 
     public void search(){ //點選搜尋後跳至 recipeSearchActivity
@@ -152,8 +156,8 @@ public class recipe_fragment extends Fragment {
             StringBuilder recipeText = new StringBuilder();
             List<Object> recipeList = currentItem.getRecipe();
 
-            // 處理陣列 逐行印出 印前5行
-            int linesToShow = 5;
+            // 處理陣列 逐行印出 印前3行
+            int linesToShow = 3;
             for (int i = 0; i < Math.min(linesToShow, recipeList.size()); i++) {
                 recipeText.append(recipeList.get(i).toString()).append("\n");
             }
@@ -199,10 +203,40 @@ public class recipe_fragment extends Fragment {
         }
     }
 
-    public void getDataFromDataBase () {
-        loading_bar.setVisibility(View.VISIBLE);
 
-        db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    public void setDefaultFoodType() { // 設置 tablayout 的預設選項
+        TabLayout.Tab defaultItem = tablayout.getTabAt(0);
+        if (defaultItem != null) {
+            defaultItem.select();
+            String keyword = String.valueOf(defaultItem.getText());
+            getDataFromDataBase(keyword);
+        }
+    }
+    public void selectFoodType(){ //選擇tabItem時做出對應的動作
+        tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                String keyword = String.valueOf(tab.getText());
+                getDataFromDataBase(keyword);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    public void getDataFromDataBase (String keyword) { // 從資料庫取得指定食物的資訊
+        loading_bar.setVisibility(View.VISIBLE);
+        recipe_item.setVisibility(View.GONE);
+        // 取得該項類別的所有食物名稱
+        db.collection("recipes").whereArrayContains("type", keyword).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -225,6 +259,7 @@ public class recipe_fragment extends Fragment {
                                             recipeItemList);
                                     recipe_item.setAdapter(recipeAdapter);
                                     loading_bar.setVisibility(View.GONE);
+                                    recipe_item.setVisibility(View.VISIBLE);
                                 }
                             }
                         });
